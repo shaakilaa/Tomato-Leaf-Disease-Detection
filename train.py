@@ -2,7 +2,7 @@ import pathlib
 from tensorflow import keras # type: ignore
 from tensorflow.keras import layers # type: ignore
 from tensorflow.keras.utils import image_dataset_from_directory # type: ignore
-import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt # type: ignore
 
 dir = pathlib.Path("tomato-leaf-dataset")
 
@@ -49,7 +49,7 @@ test_dataset = test_dataset.ignore_errors()
 
 callback = [
     keras.callbacks.ModelCheckpoint(
-        filepath="Tomato-Leaf-Disease-Detection.keras",
+        filepath="outputs/Tomato-Leaf-Disease-Detection.keras",
         save_best_only=True,
         monitor="val_loss"),
 
@@ -62,7 +62,7 @@ callback = [
 
 history = model.fit(
     train_dataset,
-    epochs=50,
+    epochs=20,
     validation_data=validation_dataset,
     callbacks=callback
     )
@@ -87,7 +87,7 @@ plt.title("Training and validation loss")
 plt.legend()
 plt.show()
 
-test_model = keras.models.load_model("Tomato-Leaf-Disease-Detection.keras")
+test_model = keras.models.load_model("outputs/Tomato-Leaf-Disease-Detection.keras")
 
 test_loss, test_acc = test_model.evaluate(test_dataset)
 print(f"Test accuracy: {test_acc:.3f}")
