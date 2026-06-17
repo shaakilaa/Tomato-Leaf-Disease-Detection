@@ -67,6 +67,11 @@ history = model.fit(
     callbacks=callback
     )
 
+test_model = keras.models.load_model("outputs/Tomato-Leaf-Disease-Detection.keras")
+
+test_loss, test_acc = test_model.evaluate(test_dataset)
+print(f"Test accuracy: {test_acc:.3f}")
+
 # Extract training history
 accuracy = history.history["accuracy"]
 val_accuracy = history.history["val_accuracy"]
@@ -86,8 +91,3 @@ plt.plot(epochs, val_loss, "b", label="Validation loss")
 plt.title("Training and validation loss")
 plt.legend()
 plt.show()
-
-test_model = keras.models.load_model("outputs/Tomato-Leaf-Disease-Detection.keras")
-
-test_loss, test_acc = test_model.evaluate(test_dataset)
-print(f"Test accuracy: {test_acc:.3f}")
